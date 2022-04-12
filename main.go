@@ -20,6 +20,8 @@ func main() {
 		os.Exit(1)
 	}
 
+	_, azdev_repo_api_url := os.LookupEnv("AZDEV_REPO_API_URL")
+
 	http.HandleFunc("/status", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "OK")
 	})
