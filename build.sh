@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CGO_ENABLED=0 go build
-export ver=v27
+export ver=v31
 docker build . -t k8s4u/gitops-agent:dev-$ver
 docker push k8s4u/gitops-agent:dev-$ver
 

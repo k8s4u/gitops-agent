@@ -1,0 +1,25 @@
+# Changes to SSH configuration
+
+## Generic settings for all Git repositories
+# Disable host key confirmation prompt
+# Redirect known_hosts file to folder with write access
+# Force id_rsa file to be used
+# Disable password authentication
+Host *
+  StrictHostKeyChecking no
+  UserKnownHostsFile ~/.ssh-tmp/known_hosts
+  IdentityFile ~/.ssh/id_rsa
+  PasswordAuthentication no
+
+# Azure DevOps Specific settings
+# Allow weak host key to over come this issue:
+# https://stackoverflow.com/questions/69875520/unable-to-negotiate-with-40-74-28-9-port-22-no-matching-host-key-type-found-th
+Host vs-ssh.visualstudio.com
+    HostName vs-ssh.visualstudio.com
+    PubkeyAcceptedAlgorithms +ssh-rsa
+    HostkeyAlgorithms +ssh-rsa
+
+Host ssh.dev.azure.com
+    HostName ssh.dev.azure.com
+    PubkeyAcceptedAlgorithms +ssh-rsa
+    HostkeyAlgorithms +ssh-rsa
