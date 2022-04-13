@@ -8,14 +8,14 @@ fi
 # Get personal access token as base64 encoded string
 cd /gitops/code
 PAT=$(cat /git-auth/pat)
-B64_PAT=$(printf "%s""x-access-token:$PAT" | base64)
+B64_PAT=$(printf "%s""x-access-token:$PAT" | base64 -w 0)
 
 # Initial clone
 if [ ! -d "/gitops/code/.git" ]; then
-  git -c http.extraHeader="Authorization: Basic ${B64_PAT}" clone $GITREPO .
+  git -c http.extraHeader="Authorization: Basic ${B64_PAT}" -c http.version="HTTP/1.1" clone $GITREPO .
 fi
 
-git -c http.extraHeader="Authorization: Basic ${B64_PAT}" pull
+git -c http.extraHeader="Authorization: Basic ${B64_PAT}" -c http.version="HTTP/1.1" pull
 
 kubectl apply -k envs/$ENVIRONMENT
-echo $?
+exit $?
