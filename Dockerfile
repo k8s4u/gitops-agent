@@ -2,6 +2,7 @@ FROM    alpine
 RUN     apk add --update --no-cache curl git \
         && addgroup -g 3000 k8s4u \
         && adduser -u 1000 -G k8s4u -S -H k8s4u \
+        && mkdir -p /home/k8s4u/ \
         && chown 1000:3000 /home/k8s4u/ -R
 
 RUN     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
