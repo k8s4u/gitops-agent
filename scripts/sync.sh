@@ -1,8 +1,22 @@
 #!/bin/sh
-cd /gitops
-if [ ! -d "/gitops/.git" ]; then
-  git clone $GITREPO .
+
+# Create subfolder because /gitops is owned by root and git complains about it
+if [ ! -d "/gitops/code" ]; then
+  mkdir /gitops/code
 fi
-git pull
+
+# Get personal access token as base64 encoded string
+cd /gitops/code
+PAT=$(cat /git-auth/pat)
+B64_PAT=$(printf "%s"":$PAT" | base64)
+
+# Initial clone
+if [ ! -d "/gitops/code/.git" ]; then
+  git -c http.extraHeader="Authorization: Basic ${B64_PAT}" clone $GITREPO .
+fi
+
+git -c http.extraHeader="Authorization: Basic ${B64_PAT}" pull
+
+echo "Sync disabled"
 kubectl apply -k envs/$ENVIRONMENT
-exit $?
+echo $?
