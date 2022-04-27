@@ -13,3 +13,6 @@ Reason to use PAT is that same token can be later used to authenticate with REST
 You can find example from https://github.com/k8s4u/gitops/commits/ea268113c4a2b90ec2f86bbf32a5056736fdfe2a and clicking that red X commit:
 
 ![image](https://user-images.githubusercontent.com/6213926/165469166-2801a03d-6cfe-4581-87c8-12798b29da86.png)
+
+## Deployment
+Deployment example can be found from [gitops](https://github.com/k8s4u/gitops) repo.
